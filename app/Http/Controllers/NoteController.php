@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Note;
-use PhpParser\Node\Expr\FuncCall;
 
 class NoteController extends Controller
 {   
@@ -17,7 +16,7 @@ class NoteController extends Controller
         foreach($notes as $note){   
             $this->array['result'][] = [
                 'id' => $note->id,
-                'tittle' => $note->tittle
+                'tittle' => $note->title
             ];
         }
 
@@ -39,20 +38,20 @@ class NoteController extends Controller
 
     //ADICIONANDO UMA NOTA
     public function new(Request $request){
-        $tittle = $request->input('tittle');
+        $title = $request->input('title');
         $body = $request->input('body');
 
-        if ($tittle && $body){
+        if ($title && $body){
             
             $note = new Note();
-            $note->tittle = $tittle;
+            $note->title = $title;
             $note->body = $body;
             $note->save();
 
             //retornando para quando fizer o teste da api
             $this->array['result'] = [
                 'id' => $note->id,
-                'tittle' => $tittle,
+                'title' => $title,
                 'body' => $body
             ];
 
@@ -60,6 +59,38 @@ class NoteController extends Controller
             $this->array['error'] = 'CAMPOS NÃO ENVIADOS';
         }
         
+        return $this->array;
+    }
+
+    //EDITANDO UMA NOTA
+    public function edit(Request $request, $id){
+        $title = $request->input('title');
+        $body = $request->input('body');
+
+        if($id && $title && $body){
+
+            $note = Note::find($id);
+
+            if($note){
+
+                $note->title = $title;
+                $note->body = $body;
+                $note->save();
+
+                $this->array['result'] = [
+                    'id' => $id,
+                    'title' => $title,
+                    'body' => $body
+                ];
+
+            }else{
+                $this->array['error'] = 'Nota não existe';
+            }
+
+        }else{
+            $this->array['error'] = 'Campos não enviados';
+        }
+
         return $this->array;
     }
 }
