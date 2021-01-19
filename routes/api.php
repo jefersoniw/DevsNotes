@@ -24,12 +24,12 @@ Route::get('/ping', function(Request $request){
 });
 
 
-Route::get('/notes', '');
+Route::get('/notes', 'NoteController@all');
 
-Route::get('/note/{id}', '');
+// Route::get('/note/{id}', '');
 
-Route::post('/note', '');
+// Route::post('/note', '');
 
-Route::put('/note/{id}', '');
+// Route::put('/note/{id}', '');
 
-Route::delete('/note/{id}', '');
+// Route::delete('/note/{id}', '');
