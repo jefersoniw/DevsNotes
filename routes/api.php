@@ -26,7 +26,7 @@ Route::get('/ping', function(Request $request){
 
 Route::get('/notes', 'NoteController@all');
 
-// Route::get('/note/{id}', '');
+Route::get('/note/{id}', 'NoteController@one');
 
 // Route::post('/note', '');
 
