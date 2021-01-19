@@ -28,7 +28,7 @@ Route::get('/notes', 'NoteController@all');
 
 Route::get('/note/{id}', 'NoteController@one');
 
-// Route::post('/note', '');
+Route::post('/note', 'NoteController@new');
 
 // Route::put('/note/{id}', '');
 

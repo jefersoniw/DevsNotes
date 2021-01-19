@@ -36,4 +36,30 @@ class NoteController extends Controller
 
         return $this->array;
     }
+
+    //ADICIONANDO UMA NOTA
+    public function new(Request $request){
+        $tittle = $request->input('tittle');
+        $body = $request->input('body');
+
+        if ($tittle && $body){
+            
+            $note = new Note();
+            $note->tittle = $tittle;
+            $note->body = $body;
+            $note->save();
+
+            //retornando para quando fizer o teste da api
+            $this->array['result'] = [
+                'id' => $note->id,
+                'tittle' => $tittle,
+                'body' => $body
+            ];
+
+        }else{
+            $this->array['error'] = 'CAMPOS NÃO ENVIADOS';
+        }
+        
+        return $this->array;
+    }
 }
