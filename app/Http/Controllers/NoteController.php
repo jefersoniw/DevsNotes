@@ -93,4 +93,19 @@ class NoteController extends Controller
 
         return $this->array;
     }
+
+    //DELETANDO UMA NOTA
+    public function delete($id){
+        $note = Note::find($id);
+
+        if($note){
+            
+            $note->delete();
+
+        }else{
+            $this->array['error'] = 'Essa nota não existe';
+        }
+
+        return $this->array;
+    }
 }
